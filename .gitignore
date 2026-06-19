@@ -1,0 +1,5 @@
+.vscode
+__pycache__
+.aux
+.log
+crypto-jump.synctex.gz

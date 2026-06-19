@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1781892593.31741 "crypto-jump.tex" "crypto-jump.pdf" "crypto-jump" 1781892593.81148 0
+["pdflatex"] 1781892696.13889 "crypto-jump.tex" "crypto-jump.pdf" "crypto-jump" 1781892696.59837 0
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1202520719 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1202520719 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
@@ -82,7 +82,7 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1755706058 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1741450574 3345740 46b66fdb0378f7bf5921b5eabf1762b8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "crypto-jump.aux" 1781892593.73566 32 ab05033ccbb38b00a31b200ccedf8001 "pdflatex"
+  "crypto-jump.aux" 1781892696.52361 32 ab05033ccbb38b00a31b200ccedf8001 "pdflatex"
   "crypto-jump.tex" 1781892577.33633 5602 87f2b9f8868da4d80bce7f8f88decfc7 ""
   (generated)
   "crypto-jump.aux"

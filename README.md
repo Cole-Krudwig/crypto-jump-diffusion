@@ -30,3 +30,11 @@ src/simulation.py    # runs jump-diffusion simulations
 data/                # saved datasets
 outputs/             # generated charts and HTML files
 ```
+
+## Notes
+
+GitHub’s PDF preview may render some LaTeX symbols or fonts incorrectly.
+
+**Please download the PDF instead of using the GitHub preview:**
+
+[Download the PDF](./crypto-jump.pdf)

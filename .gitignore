@@ -3,4 +3,6 @@ __pycache__
 *.aux
 *.log
 .DS_Store
+*.fdb_latexmk
+*.fls
 crypto-jump.synctex.gz

@@ -1,0 +1,99 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+
+\title{Modeling Path-Independent and Path-Dependent Bitcoin Crash Risk with Jump-Diffusion Processes}
+\author{Cole Krudwig}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introduction}
+
+Cryptocurrency markets exhibit both continuous price variation and occasional abrupt moves. To study short-horizon downside risk in Bitcoin, I modeled price dynamics using a jump-diffusion process calibrated on Binance minute-level data for BTCUSDT. The goal was to understand how diffusion volatility and jump intensity affect crash probabilities over a one-hour horizon. A key theme of this project is the distinction between terminal downside risk and path-dependent downside risk. The first asks whether the asset ends the horizon below a crash threshold, while the second asks whether the asset breaches that threshold at any point during the horizon. This distinction is important because jumps may have a limited effect on end-of-horizon losses if prices later recover, but they can still materially increase intrahorizon crash risk.
+
+\section*{Model}
+
+Let \(S_t\) denote the Bitcoin price at time \(t\). I modeled \(S_t\) using a jump-diffusion process of the form
+\[
+dS_t = \mu S_t\,dt + \sigma S_t\,dW_t + S_t\,dJ_t,
+\]
+where:
+\begin{itemize}
+    \item \(\mu\) is the drift,
+    \item \(\sigma\) is the diffusion volatility,
+    \item \(W_t\) is a standard Brownian motion,
+    \item \(J_t\) is a jump process driven by Poisson arrivals.
+\end{itemize}
+
+In discrete time, the simulated log-return over one minute is
+\[
+r_{t+\Delta t}
+=
+\left(\mu - \frac{1}{2}\sigma^2\right)\Delta t
++
+\sigma \sqrt{\Delta t}\, Z_t
++
+\sum_{i=1}^{N_t} Y_i,
+\]
+where \(Z_t \sim N(0,1)\), \(N_t \sim \text{Poisson}(\lambda \Delta t)\), and the jump sizes \(Y_i\) are sampled from an empirical downside jump distribution estimated from data. The price is then updated by
+\[
+S_{t+\Delta t} = S_t e^{r_{t+\Delta t}}.
+\]
+
+\section*{Empirical Calibration}
+
+I used 14 days of Binance BTCUSDT 1-minute data. From the close prices, I computed minute log-returns and rolling realized volatility. Jumps were defined as sufficiently extreme negative returns relative to local volatility, so that the jump component would reflect rare downside shock events rather than routine high-volatility moves.
+
+The estimated baseline parameters were:
+\[
+\hat{\mu} = -0.00000451, \qquad
+\hat{\sigma} = 0.00071214, \qquad
+\hat{\lambda} = 0.02756219.
+\]
+The estimated jump moments were:
+\[
+\hat{m}_J = -0.00008663, \qquad
+\hat{s}_J = 0.00276463.
+\]
+
+These estimates suggest that empirically detected jumps are relatively frequent but modest in size. This has important implications for the interpretation of the probability surfaces below.
+
+\section*{Risk Measures}
+
+I examined two types of downside crash probability over a 60-minute horizon.
+
+The first is the terminal downside probability:
+\[
+\mathbb{P}\left(\frac{S_T}{S_0} - 1 < -b\right),
+\]
+where \(b=0.02\) corresponds to a 2\% downside crash threshold.
+
+The second is the path-dependent barrier-hit probability:
+\[
+\mathbb{P}\left(\min_{0 \le t \le T}\left(\frac{S_t}{S_0} - 1\right) < -b\right).
+\]
+
+The terminal probability only depends on the ending value \(S_T\), while the barrier-hit probability depends on the entire path \(\{S_t\}_{0 \le t \le T}\). The second quantity is therefore more sensitive to abrupt temporary drops.
+
+\section*{Simulation and Visualization}
+
+Using Monte Carlo simulation, I generated price paths over the next 60 minutes across a grid of diffusion volatilities \(\sigma\) and jump intensities \(\lambda\). For each pair \((\sigma,\lambda)\), I estimated both the terminal downside probability and the path-dependent barrier-hit probability. These were displayed as two 3D probability surfaces using the same vertical scale so that the effect of jumps could be compared directly.
+
+\section*{Findings}
+
+The main finding is that, under the empirical calibration, terminal downside crash probability is driven primarily by diffusion volatility. In other words, the probability that Bitcoin ends the next hour below the crash threshold increases mainly with \(\sigma\), while the effect of jump intensity is weaker.
+
+However, the path-dependent barrier-hit probability is more sensitive to jump arrivals. This is consistent with the intuition that jumps may cause short-lived downside breaches even when the price partially recovers by the end of the horizon. Thus, the importance of jumps depends strongly on how crash risk is defined.
+
+Another useful modeling insight is that lower jump-detection thresholds tended to classify many ordinary high-volatility returns as jumps, making the jump component difficult to distinguish from diffusion. Stricter downside thresholds produced a more interpretable separation between continuous volatility and rare downside shocks.
+
+\section*{Conclusion}
+
+This project shows that a jump-diffusion model can provide a useful framework for studying short-horizon Bitcoin downside risk. The results suggest that diffusion volatility explains much of the end-of-horizon crash probability, while jumps are more important for path-dependent crash events such as barrier breaches. This highlights the value of distinguishing between terminal and pathwise notions of risk when modeling crypto markets.
+
+Future extensions could include more formal jump calibration, stochastic volatility, or first-passage time analysis for downside barriers.
+
+\end{document}

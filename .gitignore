@@ -1,4 +1,5 @@
 .vscode
+public
 __pycache__
 *.aux
 *.log
